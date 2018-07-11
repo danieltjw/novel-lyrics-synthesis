@@ -35,7 +35,7 @@ A reduced SCOWL dictionary (scowl size: 50) was used instead of the default (sco
 
 Furthermore, words that were 1-2 letters long (412 in total) were manually screened so as to remove words that are not common in lyrics. This helped reduce the number of false positives that might have resulted in an overly exaggerated score.
 
-`Dictset (Valid Words) = Words in lyrics + Words in SCOWL wordlist (reduced size)`
+`Dictset (Valid Words) = Words in lyrics + Words in SCOWL wordlist`
 
 2. Sentence length
 
