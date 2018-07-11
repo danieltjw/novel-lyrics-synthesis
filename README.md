@@ -25,7 +25,7 @@ _Note: GRU network sequence length: 50, Batch size: 128_
 
 ## Metrics
 
-1. Valid Words percentage
+### __1. Valid Words percentage__
 
 T*h*is m*e*tric eva*l*uates the model’s ability to generate non-gibberish words. The *p*ercentage of valid words over all words generated is calculated. Words are defined as strings of characters delimited by space or newlines characters.
 
@@ -37,11 +37,11 @@ Furthermore, words that were 1-2 letters long (412 in total) were manually scree
 
 `Dictset (Valid Words) = Words in lyrics + Words in SCOWL wordlist`
 
-2. Sentence length
+### __2. Sentence length__
 
 The sentence length metr*i*cs measures the ability of the model to emulate the sentence length of the original corpus. The sentence length is based on the distance between newlines (*‘*\n’) characters, inclusive of the last ending newline. Sentences of length 0, such as those used in paragraph breaks (‘\\*n*\\*n*’), are not considered.
 
-3. Sentence BLEU
+### __3. Sentence BLEU__
 
 The [sentence BLEU (BiLingual Evaluation Understudy) score](http://www.nltk.org/api/nltk.translate.html#nltk.translate.bleu_score.sentence_bleu) implementation in NLTK (N*a*tural *L*anguage ToolK*i*t) will be used as an e*v*aluation m*e*tric on how similar the generated sentences are compared to the existing lyrics. BLEU score has been a mainstay in the assessment of machine translation tasks ([Papineni, Roukos, & Ward, 2002](https://www.aclweb.org/anthology/P02-1040.pdf)). A preferred score would be one in the goldilocks zone—not too high which would indicate it being too similar and boring, but also not to low which may be too unfamiliar. 
 
