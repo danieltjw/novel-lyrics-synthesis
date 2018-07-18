@@ -76,6 +76,8 @@ The lyrics were standardised using text replacements and regular expressions:
 These lyrical patterns were left intact:
 - Contractions: { 'bout }, { 'cause }. These reduces the syllables of words and have an impact musically.
 
+Once the corpus was compiled and standardised, it had to be broken down into snippets compatible with the RNNs network sequence length. Instead of simply concatenating all the lyrics, attention was paid to ensure the lyrics from adjacent songs will not bleed into each other. This is achieved be vectorising the data song-wise.
+
 ## Benchmark
 
 The benchmark model selected was based on the well known [char-rnn](https://github.com/karpathy/char-rnn) project. It has been widely used and would be a good baseline comparison, with a caveat being that only the default hyper-parameters were used and not the implementation.
