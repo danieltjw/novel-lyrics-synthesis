@@ -45,11 +45,43 @@ The [sentence BLEU (BiLingual Evaluation Understudy) score](http://www.nltk.org/
 
 As sentence-level BLEU score will be used instead of corpus-level one, a [smoothing function](https://www.nltk.org/api/nltk.translate.html#nltk.translate.bleu_score.SmoothingFunction.method3) ([Chen & Cherry, 2014](http://acl2014.org/acl2014/W14-33/pdf/W14-3346.pdf)) was added to address null n-gram count.
 
+## Data pre-processing
+
+The lyrics included in the corpus should reflect an artist's style. These steps were taken to decide which lyrics would make up the corpus. Personal judgment was used in the last step.
+
+1. Remove cover songs
+2. Remove songs where artist has no writing credits
+3. Remove songs not in official releases (Albums, EPs, Singles)
+4. Remove song collaborations which did not fit artist’s style
+
+The 100 songs which would form the corpus were sourced from [https://genius.com](https://genius.com). As those lyrics were transcribed and annotated by volunteers, the quality varied greatly. 
+
+Song section annotation [Verse], [Chorus], [Bridge] was time-consuming to check and correct—requiring listening to each section interpreting them in the context of the song.
+
+How sentences were partitioned was also quite arbitrary. Lyrics, unlike other texts, do not have a convention on when to start a new sentence. My preference was on breaking sentences according to the musical phrasing rather than grammatically.
+
+The lyrics were standardised using text replacements and regular expressions:
+
+- Quotes: Remove single, double and standard { " } and non-standard { “ ” }
+- Punctuations: Remove { ! }, { ? }, { ‽ }, { : }, { … }, { — }
+- Punctuations: Replace semicolon { ; } → comma { , } 
+- Abbreviations: { 2 am } → { 2 a.m. }
+- Colloquialism: { in' } →  { ing }
+- Numbers: { 42 } → { forty-two }
+- Embellishments: Remove vocalisations (often in brackets): {(ah-aah-aah)} → {}
+- Embellishments: Remove spoken words that are non-musical in nature
+- Extra spaces at end of sentences: {" \n"} → {"\n"}
+- Words joined by commas without delimiters { apart,now } → { apart, now }
+
+These lyrical patterns were left intact:
+- Contractions: { 'bout }, { 'cause }. These reduces the syllables of words and have an impact musically.
+
 ## Benchmark
 
 The benchmark model selected was based on the well known [char-rnn](https://github.com/karpathy/char-rnn) project. It has been widely used and would be a good baseline comparison, with a caveat being that only the default hyper-parameters were used and not the implementation.
 
 ![](docs/benchmark.png)
+_Note: LSTM / GRU network sequence length: 50, Batch size: 128_
 
 The best model performs better at 92.45% compared to the benchmark’s 90.52%. Interestingly, the perplexity of the benchmark model is lower at 2.47 compared to the best model’s 2.7. It seems a lower perplexity does not guarantee a better language model—at least for the task of forming valid words (1st metric).
 
