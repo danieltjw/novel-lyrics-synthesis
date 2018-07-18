@@ -93,3 +93,5 @@ The best model performs better at 92.45% compared to the benchmark’s 90.52%. I
 - Two evaluation metrics (valid words and sentence length) were designed and implemented, and used to draw insights on hyper-parameters' impact on learning.
 - An automated workflow was developed that allow multiple models to be trained and evaluated. 
 - Additional features, such as the spreadsheet reports, were integrated into the code to make the research process more organised.
+- Jupyter notebook: https://github.com/danieltjw/novel-lyrics-synthesis/blob/master/nls.ipynb
+
