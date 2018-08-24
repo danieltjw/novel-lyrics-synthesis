@@ -4,16 +4,16 @@ In this project, Recurrent Neural Networks (RNNs) are applied to sequence modeli
 
 ## Table of Contents
 
-* [Summary of findings](#Summary-of-findings)
-* [Results](#Results)
-* [Metrics](#Metrics)
-    * [1. Valid Words percentage](#1.-Valid-Words-percentage)
-    * [2. Sentence Length](#2.-Sentence-Length)
-    * [3. Sentence BLEU](#3.-Sentence-BLEU)
-* [Data pre-processing](#Data-pre-processing)
-* [Benchmark](#Benchmark)
-* [Implementations](#Implementations)
-* [References](#References)
+* [Summary of findings](#summary-of-findings)
+* [Results](#results)
+* [Metrics](#metrics)
+    * [1. Valid Words percentage](#1.-valid-words-percentage)
+    * [2. Sentence Length](#2.-sentence-length)
+    * [3. Sentence BLEU](#3.-sentence-bleu)
+* [Data pre-processing](#data-pre-processing)
+* [Benchmark](#benchmark)
+* [Implementations](#implementations)
+* [References](#references)
 * [Source code: nls.ipynb](https://github.com/danieltjw/novel-lyrics-synthesis/blob/master/nls.ipynb)
 
 
