@@ -1,6 +1,21 @@
 # Novel Lyrics Synthesis
 
-In this project, Recurrent Neural Networks (RNNs) are applied to sequence modeling and Natural Language Processing (NLP) tasks. Character-level language models were trained on 100 song lyrics and then used to generate new lyrics. The quality of the generated lyrics were evaluated using 3 metrics—ability to form valid words, emulate the original sentence structure (frequency distribution of sentence length) and similarity (BLEU score).
+In this project, Recurrent Neural Networks (RNNs) are applied to sequence modeling and Natural Language Processing (NLP) tasks. Character-level language models were trained on 100 song lyrics and then used to generate new lyrics. The quality of the generated lyrics were evaluated using 3 metrics — [1] ability to form valid words, [2] emulate the original sentence structure (frequency distribution of sentence length) and [3] similarity (BLEU score).
+
+## Table of Contents
+
+* [Summary of findings](#Summary-of-findings)
+* [Results](#Results)
+* [Metrics](#Metrics)
+    * [1. Valid Words percentage](#1.-Valid-Words-percentage)
+    * [2. Sentence Length](#2.-Sentence-Length)
+    * [3. Sentence BLEU](#3.-Sentence-BLEU)
+* [Data pre-processing](#Data-pre-processing)
+* [Benchmark](#Benchmark)
+* [Implementations](#Implementations)
+* [References](#References)
+* [Source code: nls.ipynb](https://github.com/danieltjw/novel-lyrics-synthesis/blob/master/nls.ipynb)
+
 
 ## Summary of findings
 
@@ -8,16 +23,17 @@ In this project, Recurrent Neural Networks (RNNs) are applied to sequence modeli
 - Perplexity has a moderate negative correlation (r=-0.632, DF=15; P<0.01) with the valid words percentage (1st metric). This indicates that the 1st metric measures some variability that is independent from perplexity. 
 - Lower perplexity does not guarantee a better language model—at least for the task of forming valid words (1st metric).
 - GRU networks with shorter sequence length (10, 20) are not able to properly emulate the sentence length of the original corpus. These networks' sentences have a significantly higher standard deviation (23.7, 16.6) compared to the original corpus (11.8). The mean sentence length of across different models did not vary greatly. This shows that while shorter models can adequately learn the frequency of newline chars, they struggle with emulating the structure (frequency distribution) of the original lyrics.
+- GRUs performs just as well as LSTM but also with a notably faster training time (total parameters: GRU: 803,360, LSTM: 11,937,824).
 
 ## Results
 
-![](docs/hyper-parameter_search_results.png)
+![](docs/heatmap_valid_word_per.png)
 
 _Note: GRU network sequence length: 50, Batch size: 128_
 
 ---
 
-![](docs/heatmap_valid_word_per.png)
+![](docs/hyper-parameter_search_results.png)
 
 _Note: GRU network sequence length: 50, Batch size: 128_
 
@@ -33,7 +49,7 @@ A reduced SCOWL dictionary (scowl size: 50) was used instead of the default (sco
 
 Furthermore, words that were 1-2 letters long (412 in total) were manually screened so as to remove words that are not common in lyrics. This helped reduce the number of false positives that might have resulted in an overly exaggerated score.
 
-`Dictset (Valid Words) = Words in lyrics + Words in SCOWL`
+> Dictset (Valid Words) = Words in lyrics + Words in SCOWL
 
 ### __2. Sentence Length__
 
@@ -93,6 +109,27 @@ The best model performs better at 92.45% compared to the benchmark’s 90.52%. I
 - Custom hyper-parameter search that enabled network sequence length variation
 - Automated workflow that streamlined the training and evaluation of multiple models
 - Additional features, such as the spreadsheet reports, facilitated a more organised research process
+
+## References
+
+[Jeffrey L. Elman. Finding structure in time. Cognitive Science 14(2}:179–211, 1990.](https://crl.ucsd.edu/~elman/Papers/fsit.pdf)
+
+
+[Sepp Hochreiter and Jürgen Schmidhuber. Long short-term memory. Neural computation 9(8}:1735–1780, 1997.](http://www.bioinf.jku.at/publications/older/2604.pdf)
+
+[Kyunghyun Cho, Bart van Merriënboer, Dzmitry Bahdanau, and Yoshua Bengio. On the properties of neural machine translation: Encoder-decoder approaches. Eighth Workshop on Syntax, Semantics and Structure in Statistical Translation, 2014.](https://arxiv.org/pdf/1406.1078.pdf)
+
+[Kishore Papineni, Salim Roukos, Todd Ward, and Wei-Jing Zhu. BLEU:  A Method for Automatic Evaluation of Machine Translation. ACL-2002, 2002.](https://www.aclweb.org/anthology/P02-1040.pdf)
+
+[Boxing Chen and Colin Cherry. A Systematic Comparison of Smoothing Techniques for Sentence-Level BLEU. In Proceedings of the Ninth Workshop on Statistical Machine Translation, pages 362–367, 2014.](http://acl2014.org/acl2014/W14-33/pdf/W14-3346.pdf)
+
+[Junyoung Chung, Caglar Gulcehre, KyungHyun Cho, Yoshua Bengio. Empirical evaluation of gated recurrent neural networks on sequence modeling, 2014.](http://arxiv.org/abs/1412.3555)
+
+[Yann LeCun, Ido Kanter, and Sara A. Solla. Second-order properties of error surfaces: learning time and generalization. Advances in Neural Information Processing Systems, vol. 3, pp. 918-924, 1991.](http://papers.nips.cc/paper/314-second-order-properties-of-error-surfaces-learning-time-and-generalization.pdf)
+
+[Alex Graves, Abdel-rahman Mohamed, Geoffrey Hinton. Speech recognition with deep recurrent neural networks. In Acoustics, Speech and Signal Processing (ICASSP), 2013 IEEE International Conference on, pp. 6645–6649. IEEE, 2013.](https://arxiv.org/abs/1303.5778)
+
+[Rafal Jozefowicz, Wojciech Zaremba, and Ilya Sutskever. An empirical exploration of recurrent network architectures. In Proceedings of the 32nd International Conference on Machine Learning (ICML-15), pages 2342–2350, 2015.](http://proceedings.mlr.press/v37/jozefowicz15.pdf)
 
 ## Source code
 Jupyter notebook: [nls.ipynb](https://github.com/danieltjw/novel-lyrics-synthesis/blob/master/nls.ipynb)
