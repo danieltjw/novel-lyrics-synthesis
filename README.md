@@ -4,20 +4,20 @@ In this project, Recurrent Neural Networks (RNNs) are applied to sequence modeli
 
 ## Table of Contents
 
-* [Summary of findings](#summary-of-findings)
-* [Results](#results)
-* [Metrics](#metrics)
-    * [1. Valid Words percentage](#1-valid-words-percentage)
-    * [2. Sentence Length](#2-sentence-length)
-    * [3. Sentence BLEU](#3-sentence-bleu)
-* [Data pre-processing](#data-pre-processing)
-* [Benchmark](#benchmark)
-* [Implementations](#implementations)
-* [References](#references)
+* [Summary of findings](#summary-of-findings^)
+* [Results](#results^)
+* [Metrics](#metrics^)
+    * [1. Valid Words percentage](#1-valid-words-percentage^)
+    * [2. Sentence Length](#2-sentence-length^)
+    * [3. Sentence BLEU](#3-sentence-bleu^)
+* [Data pre-processing](#data-pre-processing^)
+* [Benchmark](#benchmark^)
+* [Implementations](#implementations^)
+* [References](#references^)
 * [Source code: nls.ipynb](https://github.com/danieltjw/novel-lyrics-synthesis/blob/master/nls.ipynb)
 
 
-## Summary of findings [\<UP\>](#table-of-contents)
+## Summary of findings[^](#table-of-contents)
 
 - The latest CuDNN accelerated GRUs brought about a 7.3x / 6.7x speed up in training time compared to non-CuDNN GRU implementation 1 / 2 respectively.
 - Perplexity has a moderate negative correlation (r=-0.632, DF=15; P<0.01) with the valid words percentage (1st metric). This indicates that the 1st metric measures some variability that is independent from perplexity. 
@@ -25,7 +25,7 @@ In this project, Recurrent Neural Networks (RNNs) are applied to sequence modeli
 - GRU networks with shorter sequence length (10, 20) are not able to properly emulate the sentence length of the original corpus. These networks' sentences have a significantly higher standard deviation (23.7, 16.6) compared to the original corpus (11.8). The mean sentence length of across different models did not vary greatly. This shows that while shorter models can adequately learn the frequency of newline chars, they struggle with emulating the structure (frequency distribution) of the original lyrics.
 - GRUs performs just as well as LSTM but also with a notably faster training time (total parameters: GRU: 803,360, LSTM: 11,937,824).
 
-## Results [\<UP\>](#table-of-contents)
+## Results[^](#table-of-contents)
 
 ![](docs/heatmap_valid_word_per.png)
 
@@ -37,7 +37,7 @@ _Note: GRU network sequence length: 50, Batch size: 128_
 
 _Note: GRU network sequence length: 50, Batch size: 128_
 
-## Metrics [\<UP\>](#table-of-contents)
+## Metrics[^](#table-of-contents)
 
 ### __1. Valid Words percentage__
 
@@ -61,7 +61,7 @@ The [sentence BLEU (BiLingual Evaluation Understudy) score](http://www.nltk.org/
 
 As sentence-level BLEU score will be used instead of corpus-level one, a [smoothing function](https://www.nltk.org/api/nltk.translate.html#nltk.translate.bleu_score.SmoothingFunction.method3) ([Chen & Cherry, 2014](http://acl2014.org/acl2014/W14-33/pdf/W14-3346.pdf)) was added to address null n-gram count.
 
-## Data pre-processing [\<UP\>](#table-of-contents)
+## Data pre-processing[^](#table-of-contents)
 
 The lyrics included in the corpus should reflect an artist's style. These steps were taken to decide which lyrics would make up the corpus. Personal judgment was used in the last step.
 
@@ -94,7 +94,7 @@ These lyrical patterns were left intact:
 
 Once the corpus was compiled and standardised, it had to be broken down into snippets compatible with the RNNs network sequence length. Instead of simply concatenating all the lyrics, attention was paid to ensure the lyrics from adjacent songs will not bleed into each other. This is achieved be vectorising the data song-wise.
 
-## Benchmark [\<UP\>](#table-of-contents)
+## Benchmark[^](#table-of-contents)
 
 The benchmark model selected was based on the well known [char-rnn](https://github.com/karpathy/char-rnn) project. It has been widely used and would be a good baseline comparison, with a caveat being that only the default hyper-parameters were used and not the implementation.
 
@@ -103,14 +103,14 @@ _Note: LSTM / GRU network sequence length: 50, Batch size: 128_
 
 The best model performs better at 92.45% compared to the benchmark’s 90.52%. Interestingly, the perplexity of the benchmark model is lower at 2.47 compared to the best model’s 2.7. It seems a lower perplexity does not guarantee a better language model—at least for the task of forming valid words (1st metric).
 
-## Implementations [\<UP\>](#table-of-contents)
+## Implementations[^](#table-of-contents)
 
 - Early stopping during model training to optimise computational resources
 - Custom hyper-parameter search that enabled network sequence length variation
 - Automated workflow that streamlined the training and evaluation of multiple models
 - Additional features, such as the spreadsheet reports, facilitated a more organised research process
 
-## References [\<UP\>](#table-of-contents)
+## References[^](#table-of-contents)
 
 [Jeffrey L. Elman. Finding structure in time. Cognitive Science 14(2}:179–211, 1990.](https://crl.ucsd.edu/~elman/Papers/fsit.pdf)
 
@@ -131,6 +131,6 @@ The best model performs better at 92.45% compared to the benchmark’s 90.52%. I
 
 [Rafal Jozefowicz, Wojciech Zaremba, and Ilya Sutskever. An empirical exploration of recurrent network architectures. In Proceedings of the 32nd International Conference on Machine Learning (ICML-15), pages 2342–2350, 2015.](http://proceedings.mlr.press/v37/jozefowicz15.pdf)
 
-## Source code [\<UP\>](#table-of-contents)
+## Source code[^](#table-of-contents)
 Jupyter notebook: [nls.ipynb](https://github.com/danieltjw/novel-lyrics-synthesis/blob/master/nls.ipynb)
 
