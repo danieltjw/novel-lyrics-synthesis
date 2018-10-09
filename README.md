@@ -112,7 +112,7 @@ The best model performs better at 92.45% compared to the benchmark’s 90.52%. I
 
 ## References
 
-[Jeffrey L. Elman. Finding structure in time. Cognitive Science 14(2}:179–211, 1990.](https://crl.ucsd.edu/~elman/Papers/fsit.pdf)
+[Jeffrey L. Elman. Finding structure in time. Cognitive Science 14(2):179–211, 1990.](https://crl.ucsd.edu/~elman/Papers/fsit.pdf)
 
 
 [Sepp Hochreiter and Jürgen Schmidhuber. Long short-term memory. Neural computation 9(8}:1735–1780, 1997.](http://www.bioinf.jku.at/publications/older/2604.pdf)
