@@ -19,11 +19,12 @@ In this project, Recurrent Neural Networks (RNNs) are applied to sequence modeli
 
 ## Summary of findings
 
-- The latest CuDNN accelerated GRUs brought about a 7.3x / 6.7x speed up in training time compared to non-CuDNN GRU implementation 1 / 2 respectively.
+- The latest cuDNN accelerated GRUs brought about a 7.3x / 6.7x speed up in training time compared to non-cuDNN GRU implementation 1 / 2 respectively.
+- GRU networks with shorter sequence length (10, 20) are not able to properly emulate the sentence length of the original corpus (M=33.65, SD=11.8). These networks' sentences have a significantly higher standard deviation (23.7, 16.6) compared to the original corpus. The mean sentence length was relatively consistent. 
+  - **This shows that networks with shorter sequence lengths are unable to properly emulate the frequency distribution of structures that exceed those lengths.**
 - Perplexity has a moderate negative correlation (r=-0.632, DF=15; P<0.01) with the valid words percentage (1st metric). This indicates that the 1st metric measures some variability that is independent from perplexity. 
-- Lower perplexity does not guarantee a better language model—at least for the task of forming valid words (1st metric).
-- GRU networks with shorter sequence length (10, 20) are not able to properly emulate the sentence length of the original corpus. These networks' sentences have a significantly higher standard deviation (23.7, 16.6) compared to the original corpus (11.8). The mean sentence length of across different models did not vary greatly. This shows that while shorter models can adequately learn the frequency of newline chars, they struggle with emulating the structure (frequency distribution) of the original lyrics.
-- GRUs performs just as well as LSTM but also with a notably faster training time (total parameters: GRU: 803,360, LSTM: 11,937,824).
+- Lower perplexity does not guarantee a better language model—at least for the task of forming valid words (1st metric): [Benchmark](#benchmark)
+- GRUs performs just as well as LSTMs but also with a notably faster training time (total parameters of each best model after hyper-parameter search: GRU: 803,360, LSTM: 11,937,824).
 
 ## Results
 
@@ -115,7 +116,7 @@ The best model performs better at 92.45% compared to the benchmark’s 90.52%. I
 [Jeffrey L. Elman. Finding structure in time. Cognitive Science 14(2):179–211, 1990.](https://crl.ucsd.edu/~elman/Papers/fsit.pdf)
 
 
-[Sepp Hochreiter and Jürgen Schmidhuber. Long short-term memory. Neural computation 9(8}:1735–1780, 1997.](http://www.bioinf.jku.at/publications/older/2604.pdf)
+[Sepp Hochreiter and Jürgen Schmidhuber. Long short-term memory. Neural computation 9(8):1735–1780, 1997.](http://www.bioinf.jku.at/publications/older/2604.pdf)
 
 [Kyunghyun Cho, Bart van Merriënboer, Dzmitry Bahdanau, and Yoshua Bengio. On the properties of neural machine translation: Encoder-decoder approaches. Eighth Workshop on Syntax, Semantics and Structure in Statistical Translation, 2014.](https://arxiv.org/pdf/1406.1078.pdf)
 
