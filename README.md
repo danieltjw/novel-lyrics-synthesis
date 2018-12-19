@@ -1,6 +1,9 @@
 # Novel Lyrics Synthesis
 
-In this project, Recurrent Neural Networks (RNNs) are applied to sequence modeling and Natural Language Processing (NLP) tasks. Character-level language models were trained on 100 song lyrics and then used to generate new lyrics. The quality of the generated lyrics were evaluated using 3 metrics — [1] ability to form valid words, [2] emulate the original sentence structure (frequency distribution of sentence length) and [3] similarity (BLEU score).
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/danieltjw/novel-lyrics-synthesis/blob/master/nls.ipynb)
+
+In this project, Recurrent Neural Networks (RNNs) are applied to sequence modeling and Natural Language Processing (NLP) tasks. Character-level language models were trained on a tiny small dataset of 100 song lyrics (176k characters) and then used to generate new lyrics. The quality of the generated lyrics were evaluated using 3 metrics — [1] ability to form valid words, [2] emulate the original sentence structure (frequency distribution of sentence length) and [3] similarity (BLEU score).
+
 
 ## Table of Contents
 
