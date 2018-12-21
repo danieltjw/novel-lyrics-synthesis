@@ -2,12 +2,14 @@
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/danieltjw/novel-lyrics-synthesis/blob/master/nls.ipynb)
 
-In this project, Recurrent Neural Networks (RNNs) are applied to sequence modeling and Natural Language Processing (NLP) tasks. Character-level language models were trained on a tiny small dataset of 100 song lyrics (176k characters) and then used to generate new lyrics. The quality of the generated lyrics were evaluated using 3 metrics — [1] ability to form valid words, [2] emulate the original sentence structure (frequency distribution of sentence length) and [3] similarity (BLEU score).
+In this project, Recurrent Neural Networks (RNNs) are applied to sequence modeling and Natural Language Processing (NLP) tasks. Character-level language models were trained on a tiny small dataset of 100 song lyrics (176k characters total) and then used to generate new lyrics. The quality of the generated lyrics were evaluated using 3 metrics — [1] ability to form valid words, [2] emulate the original sentence structure (frequency distribution of sentence length) and [3] similarity (BLEU score).
 
 
 ## Table of Contents
 
 * [Summary of findings](#summary-of-findings)
+* [Data Exploration](#data-exploration)
+* [Synthesised Lyrics Selection](#synthesised-lyrics-selection)
 * [Results](#results)
 * [Metrics](#metrics)
     * [1. Valid Words percentage](#1-valid-words-percentage)
@@ -24,10 +26,88 @@ In this project, Recurrent Neural Networks (RNNs) are applied to sequence modeli
 
 - The latest cuDNN accelerated GRUs brought about a 7.3x / 6.7x speed up in training time compared to non-cuDNN GRU implementation 1 / 2 respectively.
 - GRU networks with shorter sequence length (10, 20) are not able to properly emulate the sentence length of the original corpus (M=33.65, SD=11.8). These networks' sentences have a significantly higher standard deviation (23.7, 16.6) compared to the original corpus. The mean sentence length was relatively consistent. 
-  - **This shows that networks with shorter sequence lengths are unable to properly emulate the frequency distribution of structures that exceed those lengths.**
+  - Networks with shorter sequence lengths are unable to properly emulate the frequency distribution of structures that exceed those lengths.
 - Perplexity has a moderate negative correlation (r=-0.632, DF=15; P<0.01) with the valid words percentage (1st metric). This indicates that the 1st metric measures some variability that is independent from perplexity. 
 - Lower perplexity does not guarantee a better language model—at least for the task of forming valid words (1st metric): [Benchmark](#benchmark)
 - GRUs performs just as well as LSTMs but also with a notably faster training time (total parameters of each best model after hyper-parameter search: GRU: 803,360, LSTM: 11,937,824).
+
+## Data Exploration
+
+Descriptive statistics of 100 song lyrics.
+
+| Describe        | Songs   | Sentences | Words |
+|-----------------|---------|-----------|-------|
+| count           | 100     | 5046      | 35658 |
+| mean (char len) | 1755.97 | 33.65     | 3.85  |
+| std             | 356.91  | 11.77     | 1.8   |
+| min             | 977     | 3         | 1     |
+| 25%             | 1514.25 | 25        | 3     |
+| 50%             | 1781.5  | 33        | 4     |
+| 75%             | 1954.5  | 42        | 5     |
+| max             | 2575    | 76        | 17    |
+
+![](docs/each_line_len_distplot.png)![](docs/each_word_len_distplot.png)
+
+## Synthesised Lyrics Selection
+
+The lyrics being synthesised can be tweaked by using different diversity (temperature) values ranging (0, ∞). At a value of 1.0 compared to 0.5, the synthesised lyrics will be more novel (reflected in the lower BLEU score and therefore lower similarity to the original corpus) but with the tendency of being less coherent and making more spelling errors.
+
+### Diversity: 1.0
+
+a. **The answer to life, the universe and everything is**
+> new york
+
+> it's lover in love whose people as in a car
+
+> all eyes and occondes
+
+> i whole you play 
+
+1 invalid words: Counter({'occondes': 1})
+
+Total valid words: 19 / 20 (95.00%), BLEU score: [0.160]
+
+b. **The answer to life, the universe and everything is**
+> a fairytale
+
+> i haxne why would you don't think about her something
+
+> we watch supered to be is mean
+
+> would 
+
+2 invalid words: Counter({'supered': 1, 'haxne': 1})
+
+Total valid words: 18 / 20 (90.00%), BLEU score: [0.254]
+
+### Diversity: 0.5
+
+a. **The answer to life, the universe and everything is**
+> a simple
+
+> i'm waiting for you
+
+> wish i never say i didn't sine
+
+> so this is the last time 
+
+
+1 new words: Counter({'sine': 1})
+
+Total valid words: 19 / 19 (100.00%), BLEU score: [0.464]
+
+b. **The answer to life, the universe and everything is**
+> a smile
+
+> but someday, i'll be living in a getaway car
+
+> i was riding in a getaway car
+
+> i was 
+
+Total valid words: 20 / 20 (100.00%), BLEU score: [0.621]
+
+_Note: [‘CuDNNGRU’, Layers: 4, Units: 192]_
 
 ## Results
 
